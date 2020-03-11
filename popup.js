@@ -1,21 +1,28 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 'use strict';
 
-let changeColor = document.getElementById('changeColor');
+const btnColors = {
+  active: '#0377fb',
+  inactive: '#929292'
+};
 
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
+chrome.storage.local.get('enabled', (data) => {
+  let enabled = data;
+  if (enabled) {
+    toggleBtn.style.backgroundColor = btnColors.active;
+  } else {
+    toggleBtn.style.backgroundColor = btnColors.inactive;
+  }
 });
 
-changeColor.onclick = function(element) {
-  let color = element.target.value;
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'document.body.style.backgroundColor = "' + color + '";'});
+let toggleBtn = document.getElementById('toggleBtn');
+toggleBtn.addEventListener('click', () => {
+  chrome.storage.local.get('enabled', (data) => {
+    let enabled = !data.enabled;
+    if (enabled) {
+      toggleBtn.style.backgroundColor = btnColors.active;
+    } else {
+      toggleBtn.style.backgroundColor = btnColors.inactive;
+    }
+    chrome.storage.local.set({enabled: enabled});
   });
-};
+});

@@ -1,27 +1,26 @@
 {
-  "name": "Getting Started Example",
-  "version": "1.0",
-  "description": "Build an Extension!",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
-  "options_page": "options.html",
+  "name": "TabManager",
+  "version": "1.0.0",
+  "description": "An extension for killing and organizing tabs.",
+  "permissions": ["storage", "tabs"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
-  "page_action": {
+  "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
+      "16": "images/window_close16.png",
+      "32": "images/window_close32.png",
+      "48": "images/window_close48.png",
+      "128": "images/window_close128.png"
     }
   },
   "icons": {
-    "16": "images/get_started16.png",
-    "32": "images/get_started32.png",
-    "48": "images/get_started48.png",
-    "128": "images/get_started128.png"
+    "16": "images/window_close16.png",
+    "32": "images/window_close32.png",
+    "48": "images/window_close48.png",
+    "128": "images/window_close128.png"
   },
   "manifest_version": 2
 }
