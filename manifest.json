@@ -1,6 +1,6 @@
 {
   "name": "TabManager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An extension for killing and organizing tabs.",
   "permissions": ["storage", "tabs"],
   "background": {
@@ -10,17 +10,17 @@
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "images/window_close16.png",
-      "32": "images/window_close32.png",
-      "48": "images/window_close48.png",
-      "128": "images/window_close128.png"
+      "16": "images/tab_active16.png",
+      "32": "images/tab_active32.png",
+      "48": "images/tab_active48.png",
+      "128": "images/tab_active128.png"
     }
   },
   "icons": {
-    "16": "images/window_close16.png",
-    "32": "images/window_close32.png",
-    "48": "images/window_close48.png",
-    "128": "images/window_close128.png"
+    "16": "images/tab_active16.png",
+    "32": "images/tab_active32.png",
+    "48": "images/tab_active48.png",
+    "128": "images/tab_active128.png"
   },
   "manifest_version": 2
 }
