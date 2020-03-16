@@ -1,7 +1,7 @@
 {
   "name": "TabManager",
   "version": "1.0.1",
-  "description": "An extension for killing and organizing tabs.",
+  "description": "An extension for managing and organizing tabs.",
   "permissions": ["storage", "tabs"],
   "background": {
     "scripts": ["background.js"],
