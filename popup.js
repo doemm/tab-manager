@@ -5,8 +5,9 @@ const btnColors = {
   inactive: '#929292'
 };
 
+let toggleBtn = document.getElementById('toggleBtn');
 chrome.storage.local.get('enabled', (data) => {
-  let enabled = data;
+  let enabled = data.enabled;
   if (enabled) {
     toggleBtn.style.backgroundColor = btnColors.active;
   } else {
@@ -14,7 +15,6 @@ chrome.storage.local.get('enabled', (data) => {
   }
 });
 
-let toggleBtn = document.getElementById('toggleBtn');
 toggleBtn.addEventListener('click', () => {
   chrome.storage.local.get('enabled', (data) => {
     let enabled = !data.enabled;
