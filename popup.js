@@ -54,6 +54,7 @@ sortWindow.addEventListener('click', () => {
 
       const info = {
         domain: '',
+        subdomain: '',
         id: tab.id
       };
 
@@ -64,6 +65,7 @@ sortWindow.addEventListener('click', () => {
         // e.g. sub.sub.domain.com
         if (urlItems.some(isNaN)) {
           info.domain = urlItems[itemsLen-2];
+          info.subdomain = urlItems.slice(0, itemsLen-2).join('.');
         // e.g. 192.168.0.1
         } else {
           info.domain = url.hostname;
@@ -73,7 +75,11 @@ sortWindow.addEventListener('click', () => {
     });
 
     domains.sort((a, b) => {
-      return (a.domain).localeCompare(b.domain);
+      if (a.domain === b.domain) {
+        if (a.subdomain === b.subdomain) return 0;
+        return a.subdomain < b.subdomain ? -1 : 1;
+      }
+      return a.domain < b.domain ? -1 : 1;
     })
 
     for (let i = 0; i < domains.length; ++i) {

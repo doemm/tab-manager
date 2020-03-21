@@ -12,9 +12,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         chrome.tabs.query({}, (tabs) => {
           for (let i = 0; i < tabs.length; i++) {
             if (tabs[i].id !== tab.id && tabs[i].url === tab.url) {
-              chrome.windows.update(parseInt(tabs[i].windowId), {focused: true});
-              chrome.tabs.update(parseInt(tabs[i].id), {active: true});
-              chrome.tabs.remove(parseInt(tab.id));
+              chrome.tabs.remove(parseInt(tabs[i].id));
               break;
             }
           }
