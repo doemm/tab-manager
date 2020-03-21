@@ -43,6 +43,18 @@ toggleBtn.addEventListener('click', () => {
   });
 });
 
+let mergeAll = document.getElementById('mergeAll');
+mergeAll.addEventListener('click', () => {
+    chrome.windows.getCurrent((window) => {
+      let currWindow = window.id;
+      chrome.tabs.query({}, (tabs) => {
+        tabs.forEach((tab) => {
+          chrome.tabs.move(tab.id, {windowId: currWindow, index: -1});
+        });
+      });
+    });
+});
+
 let sortWindow = document.getElementById('sortWindow');
 sortWindow.addEventListener('click', () => {
   chrome.tabs.query({currentWindow: true}, (tabs) => {

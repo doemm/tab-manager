@@ -9,7 +9,13 @@ body {
   margin: 0 auto 5px auto;
 }
 
+#mergeAll {
+  min-width: 90px;
+  white-space: nowrap;
+  margin: 0 auto 5px auto;
+}
+
 #sortWindow {
-  width: atuo;
+  min-width: 90px;
   white-space: nowrap;
 }
