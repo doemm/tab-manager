@@ -4,15 +4,16 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.set({enabled: true});
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (tab.status === 'complete') {
+chrome.tabs.onUpdated.addListener((currTabId, currChanges, currTab) => {
+  if (currTab.status === 'complete') {
     chrome.storage.local.get('enabled', (data) => {
       let enabled = data.enabled;
       if (enabled) {
         chrome.tabs.query({}, (tabs) => {
-          for (let i = 0; i < tabs.length; i++) {
-            if (tabs[i].id !== tab.id && tabs[i].url === tab.url) {
-              chrome.tabs.remove(parseInt(tabs[i].id));
+          for (let tab of tabs) {
+            if (tab.id !== currTab.id &&
+                tab.url === currTab.url) {
+              chrome.tabs.remove(parseInt(tab.id));
               break;
             }
           }
