@@ -5,8 +5,17 @@
     <script src="popup.js" defer></script>
   </head>
   <body>
-    <button id="toggleBtn"></button>
-    <button id="mergeAll">Merge All</button>
-    <button id="sortWindow">Sort Window</button>
+    <div class="tab-bar grey">
+      <button id="actions-tab" class="tab-button red">Actions</button>
+      <button id="currwin-tab" class="tab-button" disabled>Curr Win</button>
+      <button id="allwins-tab" class="tab-button" disabled>All Wins</button>
+    </div>
+    <div id="actions-page" class="tab-content">
+      <button id="toggle-button" class="action-button">Detect Duplicate Tabs</button>
+      <button id="merge-button" class="action-button">Merge All</button>
+      <button id="sort-button" class="action-button">Sort Window</button>
+    </div>
+    <div id="currwin-page" class="tab-content"></div>
+    <div id="allwins-page" class="tab-content"></div>
   </body>
 </html>

@@ -5,7 +5,35 @@ const btnColors = {
   inactive: '#929292'
 };
 
-let toggleBtn = document.getElementById('toggleBtn');
+let tabBar = document.getElementsByClassName('tab-bar')[0];
+tabBar.addEventListener('click', (event) => {
+  let tabContents = document.getElementsByClassName('tab-content');
+  for (let i = 0; i < tabContents.length; ++i) {
+    tabContents[i].style.display = 'none';
+  }
+  let tabButtons = document.getElementsByClassName('tab-button');
+  for (let i = 0; i < tabButtons.length; ++i) {
+    tabButtons[i].className= tabButtons[i].className.replace(' red', '');
+  }
+
+  let activeTab = event.target;
+  activeTab.className += ' red';
+  switch(activeTab.id) {
+    case 'currwin-tab':
+      let currwinPage = document.getElementById('currwin-page');
+      currwinPage.style.display = 'block';
+      break;
+    case 'allwins-tab':
+      let allwinsPage = document.getElementById('allwins-page');
+      allwinsPage.style.display = 'block';
+      break;
+    default:
+      let actionsPage = document.getElementById('actions-page');
+      actionsPage.style.display = 'block';
+  }
+});
+
+let toggleBtn = document.getElementById('toggle-button');
 chrome.storage.local.get('enabled', (data) => {
   let enabled = data.enabled;
   if (enabled) {
@@ -14,7 +42,6 @@ chrome.storage.local.get('enabled', (data) => {
     toggleBtn.style.backgroundColor = btnColors.inactive;
   }
 });
-
 toggleBtn.addEventListener('click', () => {
   chrome.storage.local.get('enabled', (data) => {
     let enabled = !data.enabled;
@@ -43,8 +70,8 @@ toggleBtn.addEventListener('click', () => {
   });
 });
 
-let mergeAll = document.getElementById('mergeAll');
-mergeAll.addEventListener('click', () => {
+let mergeBtn = document.getElementById('merge-button');
+mergeBtn.addEventListener('click', () => {
     chrome.windows.getCurrent((window) => {
       let currWindow = window.id;
       chrome.tabs.query({}, (tabs) => {
@@ -55,8 +82,8 @@ mergeAll.addEventListener('click', () => {
     });
 });
 
-let sortWindow = document.getElementById('sortWindow');
-sortWindow.addEventListener('click', () => {
+let sortBtn = document.getElementById('sort-button');
+sortBtn.addEventListener('click', () => {
   chrome.tabs.query({currentWindow: true}, (tabs) => {
     let domains = [];
     tabs.forEach((tab) => {
