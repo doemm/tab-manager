@@ -18,13 +18,20 @@
 body {
   margin: 0;
   width: max-content;
+}
+#actions-page {
+  display: block;
   text-align: center;
+  margin-top: 5px;
+}
+#currwin-page {
+  display: none;
+  width: 568px;
 }
 
 .tab-bar {
   width: 100%;
   overflow: hidden;
-  margin: 0 auto 5px 0;
   color: #fff;
   background: #929292;
 }
@@ -44,7 +51,7 @@ body {
   display: block;
   border: 0;
   color: #fff;
-  margin: 0 auto 5px auto;
+  margin: 5px auto;
 }
 #toggle-button {
   width: auto;
@@ -65,4 +72,28 @@ body {
 #merge-button:active,
 #sort-button:active {
   background: #fb9c03;
+}
+
+.site-list {
+  padding: 0;
+  margin: 0;
+  width: 568px;
+  color: #000;
+  list-style: none;
+}
+.site-item {
+  font-size: 14px;
+  max-width: 548px;
+  white-space: nowrap;
+  padding: 6px 8px;
+  overflow: hidden;
+  text-overflow: clip;
+}
+.site-item:hover {
+  color: #fff;
+  background: #b8b8b8;
+}
+.site-icon {
+  width: 14px;
+  margin-right: 6px;
 }
