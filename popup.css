@@ -16,6 +16,8 @@
 }
 
 body {
+  font-family: Tahoma, sans-serif;
+  font-size: 13.3333px;
   margin: 0;
   width: max-content;
 }
@@ -82,7 +84,6 @@ body {
   list-style: none;
 }
 .site-item {
-  font-size: 14px;
   max-width: 548px;
   white-space: nowrap;
   padding: 6px 8px;
@@ -94,6 +95,6 @@ body {
   background: #b8b8b8;
 }
 .site-icon {
-  width: 14px;
+  width: 13.3333px;
   margin-right: 6px;
 }
