@@ -84,11 +84,10 @@ body {
   list-style: none;
 }
 .site-item {
-  max-width: 548px;
   white-space: nowrap;
   padding: 6px 8px;
   overflow: hidden;
-  text-overflow: clip;
+  text-overflow: ellipsis;
 }
 .site-item:hover {
   color: #fff;
