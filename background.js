@@ -28,7 +28,6 @@ chrome.tabs.onUpdated.addListener((currTabId, currChanges, currTab) => {
             if (tab.id !== currTab.id &&
                 tab.url === currTab.url) {
               chrome.tabs.remove(parseInt(tab.id));
-              break;
             }
           }
         });
