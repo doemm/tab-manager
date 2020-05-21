@@ -24,11 +24,11 @@ body {
 #actions-page {
   display: block;
   text-align: center;
-  margin-top: 5px;
+  margin: 12px 0;
 }
 #currwin-page {
   display: none;
-  width: 568px;
+  width: 468px;
 }
 
 .tab-bar {
@@ -39,6 +39,7 @@ body {
 }
 .tab-bar .tab-button {
   display: block;
+  font-size: 14px;
   padding: 8px 12px;
   float: left;
   border: none;
@@ -53,7 +54,7 @@ body {
   display: block;
   border: 0;
   color: #fff;
-  margin: 5px auto;
+  margin: 8px auto;
 }
 #toggle-button {
   width: auto;
@@ -79,19 +80,37 @@ body {
 .site-list {
   padding: 0;
   margin: 0;
-  width: 568px;
+  width: 468px;
   color: #000;
   list-style: none;
 }
-.site-item {
+/* .site-item {} */
+.info-text {
+  display: inline-block;
+  padding: 0 8px;
+  width: 419px;
   white-space: nowrap;
-  padding: 6px 8px;
   overflow: hidden;
   text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.close-btn {
+  width: 33px;
+  height: 33px;
+  border: none;
+  color: #fff;
+  background: #f44336;
+  border: 1px solid #f6665b;
 }
 .site-item:hover {
   color: #fff;
   background: #b8b8b8;
+}
+.site-item:hover > .close-btn {
+  background: #e31b0c;
+}
+.close-btn:hover {
+  background: #981208 !important;
 }
 .site-icon {
   width: 13.3333px;

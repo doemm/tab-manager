@@ -153,13 +153,23 @@ function loadCurrwinPage() {
       let liElement = document.createElement('li');
       liElement.className = 'site-item';
       liElement.dataset.tabId = tab.id;
+
+      let infoText = document.createElement('span');
+      infoText.className = 'info-text';
       if (tab.favIconUrl) {
-        liElement.innerHTML = '<img class="site-icon" ' +
+        infoText.innerHTML = '<img class="site-icon" ' +
           'src="' + tab.favIconUrl + '">' + tab.title;
       } else {
         const spanStyle = 'display:inline-block; width:13.3333px; height:13.3333px; margin-right:6px;';
-        liElement.innerHTML = '<span style="' + spanStyle + '"></span>' + tab.title;
+        infoText.innerHTML = '<span style="' + spanStyle + '"></span>' + tab.title;
       }
+
+      let closeBtn = document.createElement('button');
+      closeBtn.className = 'close-btn';
+      closeBtn.innerHTML = 'X';
+
+      liElement.appendChild(infoText);
+      liElement.appendChild(closeBtn);
       ulElement.appendChild(liElement);
     }
     currwinPage.appendChild(ulElement);
@@ -168,7 +178,7 @@ function loadCurrwinPage() {
 
 let currwinPage = document.querySelector('#currwin-page');
 currwinPage.addEventListener('click', (event) => {
-  const siteItem = event.target;
+  const siteItem = event.target.parentNode;
   const tabId = siteItem.dataset.tabId;
   chrome.tabs.update(parseInt(tabId), {active: true});
 });
