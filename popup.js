@@ -180,5 +180,13 @@ let currwinPage = document.querySelector('#currwin-page');
 currwinPage.addEventListener('click', (event) => {
   const siteItem = event.target.parentNode;
   const tabId = siteItem.dataset.tabId;
-  chrome.tabs.update(parseInt(tabId), {active: true});
+  if (event.target.matches('span.info-text')) {
+    chrome.tabs.update(parseInt(tabId), {active: true});
+  }
+  if (event.target.matches('button.close-btn')) {
+    chrome.tabs.remove(parseInt(tabId));
+    // remove closed page list item
+    let siteList = document.querySelector('.site-list');
+    siteList.removeChild(siteItem);
+  }
 });
