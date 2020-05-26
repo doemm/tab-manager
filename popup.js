@@ -182,12 +182,13 @@ function loadCurrwinPage() {
 
 drake.on('drop', (el, target, source, sibling) => {
   const sourceId = el.dataset.tabId;
-  // glory to es6 features
-  const dropIdx = [...source.childNodes].findIndex((item) => {
+  // glory to es6 features; start index is 1
+  const tempIdx = [...source.childNodes].findIndex((item) => {
     return item === sibling;
   });
+  const dropIdx = (tempIdx !== -1) ? tempIdx-1 : -1;
 
-  chrome.tabs.move(parseInt(sourceId), {index: dropIdx-1})
+  chrome.tabs.move(parseInt(sourceId), {index: dropIdx})
 });
 
 let currwinPage = document.querySelector('#currwin-page');
