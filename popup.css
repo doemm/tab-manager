@@ -1,3 +1,4 @@
+/* color palette options */
 .grey {
   color: #fff !important;
   background: #929292 !important;
@@ -15,6 +16,8 @@
   background: #fb8703 !important;
 }
 
+
+/* default basic styles */
 body {
   font-family: Tahoma, sans-serif;
   font-size: 13.3333px;
@@ -50,6 +53,8 @@ body {
   background: #f44336;
 }
 
+
+/* action page styles */
 .action-button {
   display: block;
   border: 0;
@@ -77,6 +82,8 @@ body {
   background: #fb9c03;
 }
 
+
+/* curr-win page styles */
 .site-list {
   padding: 0;
   margin: 0;
@@ -115,4 +122,26 @@ body {
 .site-icon {
   width: 13.3333px;
   margin-right: 6px;
+}
+
+/** drag mirror effect **/
+.gu-mirror {
+  list-style: none;
+}
+.gu-mirror .info-text {
+  display: inline-block;
+  padding: 0 8px;
+  width: 419px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.gu-mirror .close-btn {
+  width: 33px;
+  height: 33px;
+  border: none;
+  color: #fff;
+  background: #f44336;
+  border: 1px solid #f6665b;
 }

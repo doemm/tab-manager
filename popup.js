@@ -143,6 +143,8 @@ sortBtn.addEventListener('click', () => {
   });
 });
 
+// use dragula to complete dnd effects
+let drake = dragula();
 function loadCurrwinPage() {
   let currwinPage = document.querySelector('#currwin-page');
   currwinPage.innerHTML = '';
@@ -171,10 +173,22 @@ function loadCurrwinPage() {
       liElement.appendChild(infoText);
       liElement.appendChild(closeBtn);
       ulElement.appendChild(liElement);
+      // append ulElement as the dragula containers
+      drake.containers.push(ulElement);
     }
     currwinPage.appendChild(ulElement);
   });
 }
+
+drake.on('drop', (el, target, source, sibling) => {
+  const sourceId = el.dataset.tabId;
+  // glory to es6 features
+  const dropIdx = [...source.childNodes].findIndex((item) => {
+    return item === sibling;
+  });
+
+  chrome.tabs.move(parseInt(sourceId), {index: dropIdx-1})
+});
 
 let currwinPage = document.querySelector('#currwin-page');
 currwinPage.addEventListener('click', (event) => {
