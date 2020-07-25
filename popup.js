@@ -14,6 +14,9 @@ chrome.storage.local.get('savedTab', (data) => {
   }
 });
 
+let currwinPage = document.querySelector('#currwin-page');
+let actionsPage = document.querySelector('#actions-page');
+
 let tabBar = document.querySelector('.tab-bar');
 tabBar.addEventListener('click', (event) => {
   let activeTab = event.target;
@@ -35,11 +38,9 @@ tabBar.addEventListener('click', (event) => {
   switch(activeTab.id) {
     case 'currwin-tab':
       loadCurrwinList();
-      let currwinPage = document.querySelector('#currwin-page');
       currwinPage.style.display = 'block';
       break;
     default:
-      let actionsPage = document.querySelector('#actions-page');
       actionsPage.style.display = 'block';
   }
   chrome.storage.local.set({savedTab: activeTab.id});
@@ -141,16 +142,17 @@ sortBtn.addEventListener('click', () => {
 
 // use dragula to complete dnd effects
 let drake = dragula();
+let currwinListWrapper = document.querySelector('#currwin-list-wrapper');
 function loadCurrwinList() {
-  let currwinList = document.querySelector('#currwin-list-wrapper');
-  currwinList.innerHTML = '';     // clear the currwin list
+  currwinListWrapper.innerHTML = '';     // clear the currwin list
   chrome.tabs.query({currentWindow: true}, (tabs) => {
-    let tabList = document.createElement('ul');
-    tabList.className = 'site-list';
+    let siteList = document.createElement('ul');
+    siteList.className = 'site-list';
     for (let tab of tabs) {
-      let tabItem = document.createElement('li');
-      tabItem.className = 'site-item';
-      tabItem.dataset.tabId = tab.id;
+      let siteItem = document.createElement('li');
+      siteItem.className = 'site-item';
+      siteItem.dataset.tabId = tab.id;
+      siteItem.tabIndex = '0';     // this is for change focus
 
       let infoText = document.createElement('span');
       infoText.className = 'info-text';
@@ -162,27 +164,57 @@ function loadCurrwinList() {
         infoText.innerHTML = '<span style="' + spanStyle + '"></span>' + tab.title;
       }
 
+      // handle the click event for close tab
       let closeBtn = document.createElement('button');
       closeBtn.className = 'close-btn';
       closeBtn.innerHTML = 'X';
 
-      tabItem.appendChild(infoText);
-      tabItem.appendChild(closeBtn);
-      tabList.appendChild(tabItem);
-      // append tabList as the dragula containers
-      drake.containers.push(tabList);
+      siteItem.appendChild(infoText);
+      siteItem.appendChild(closeBtn);
+
+      // handle the keyboard event for close tab
+      siteItem.addEventListener('mouseover', (event) => {
+        event.currentTarget.focus();
+      });
+      siteItem.addEventListener('mouseleave', (event) => {
+        event.currentTarget.blur();
+      });
+      siteItem.addEventListener('keydown', (event) => {
+        const tabId = event.currentTarget.dataset.tabId;
+        chrome.tabs.remove(parseInt(tabId));
+        // remove closed page list item
+        siteList.removeChild(event.currentTarget);
+      });
+
+      siteList.appendChild(siteItem);
+      // append siteList as the dragula containers
+      drake.containers.push(siteList);
     }
-    currwinList.appendChild(tabList);
+    currwinListWrapper.appendChild(siteList);
   });
 }
+
+currwinListWrapper.addEventListener('click', (event) => {
+  const siteItem = event.target.parentNode;
+  const tabId = siteItem.dataset.tabId;
+  if (event.target.matches('span.info-text')) {
+    chrome.tabs.update(parseInt(tabId), {active: true});
+  }
+  if (event.target.matches('button.close-btn')) {
+    chrome.tabs.remove(parseInt(tabId));
+    // remove closed page list item
+    let siteList = document.querySelector('.site-list');
+    siteList.removeChild(siteItem);
+  }
+});
 
 let searchInput = document.querySelector('#currwin-search');
 searchInput.addEventListener('keyup', searchTabs);
 function searchTabs() {
   let filterWord = searchInput.value.toLowerCase();
 
-  let tabItems = document.querySelectorAll('#currwin-list-wrapper li');
-  for (let item of tabItems) {
+  let siteItems = document.querySelectorAll('#currwin-list-wrapper li');
+  for (let item of siteItems) {
     const itemText = item.querySelector('span').textContent;
     if (itemText.toLowerCase().indexOf(filterWord) > -1) {
       item.style.display = 'list-item';
@@ -201,19 +233,4 @@ drake.on('drop', (el, target, source, sibling) => {
   const dropIdx = (tempIdx !== -1) ? tempIdx-1 : -1;
 
   chrome.tabs.move(parseInt(sourceId), {index: dropIdx})
-});
-
-let currwinPage = document.querySelector('#currwin-page');
-currwinPage.addEventListener('click', (event) => {
-  const siteItem = event.target.parentNode;
-  const tabId = siteItem.dataset.tabId;
-  if (event.target.matches('span.info-text')) {
-    chrome.tabs.update(parseInt(tabId), {active: true});
-  }
-  if (event.target.matches('button.close-btn')) {
-    chrome.tabs.remove(parseInt(tabId));
-    // remove closed page list item
-    let siteList = document.querySelector('.site-list');
-    siteList.removeChild(siteItem);
-  }
 });
