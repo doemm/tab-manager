@@ -18,6 +18,10 @@
 
 
 /* default basic styles */
+*, *:focus, *:hover{
+    outline:none;
+}
+
 body {
   font-family: Tahoma, sans-serif;
   font-size: 13.3333px;
