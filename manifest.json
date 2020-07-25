@@ -1,6 +1,6 @@
 {
   "name": "TabManager",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "An extension for managing and organizing tabs.",
   "permissions": ["storage", "tabs"],
   "background": {

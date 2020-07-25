@@ -1,7 +1,7 @@
 'use strict';
 
 const colorMap = {
-  blue: '#0377fb',
+  blue: '#3688f4',
   grey: '#929292',
   red:  '#f44336'
 };
@@ -31,16 +31,12 @@ tabBar.addEventListener('click', (event) => {
     }
   }
 
-  activeTab.style.background = colorMap.red;
+  activeTab.style.background = colorMap.blue;
   switch(activeTab.id) {
     case 'currwin-tab':
       loadCurrwinList();
       let currwinPage = document.querySelector('#currwin-page');
       currwinPage.style.display = 'block';
-      break;
-    case 'allwins-tab':
-      let allwinsPage = document.querySelector('#allwins-page');
-      allwinsPage.style.display = 'block';
       break;
     default:
       let actionsPage = document.querySelector('#actions-page');

@@ -13,7 +13,7 @@
 }
 .orange {
   color: #fff !important;
-  background: #fb8703 !important;
+  background: #f4a236 !important;
 }
 
 
@@ -51,10 +51,10 @@ body {
   float: left;
   border: none;
   color: inherit;
-  background: inherit;
+  background: #929292;
 }
 .tab-bar #actions-tab {
-  background: #f44336;
+  background: #3688f4;
 }
 
 
@@ -75,15 +75,15 @@ body {
   width: 90px;
   white-space: nowrap;
   padding: 6px 8px;
-  background: #fb8703;
+  background: #f4a236;
 }
 #merge-button:hover,
 #sort-button:hover {
-  background: #fb7203;
+  background: #ea8b0d;
 }
 #merge-button:active,
 #sort-button:active {
-  background: #fb9c03;
+  background: #f4a236;
 }
 
 
