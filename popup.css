@@ -19,7 +19,7 @@
 
 /* default basic styles */
 *, *:focus, *:hover{
-    outline:none;
+  outline: none;
 }
 
 body {
@@ -87,7 +87,17 @@ body {
 }
 
 
-/* curr-win page styles */
+/* curr-win search */
+#currwin-search {
+  width: 100%;
+  font-family: Tahoma, sans-serif;
+  font-size: 13.3333px;
+  border: none;
+  border-bottom: 1px solid #929292;
+  box-sizing: border-box;
+  padding: 8px;
+}
+/* curr-win list */
 .site-list {
   padding: 0;
   margin: 0;

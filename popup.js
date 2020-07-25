@@ -34,7 +34,7 @@ tabBar.addEventListener('click', (event) => {
   activeTab.style.background = colorMap.red;
   switch(activeTab.id) {
     case 'currwin-tab':
-      loadCurrwinPage();
+      loadCurrwinList();
       let currwinPage = document.querySelector('#currwin-page');
       currwinPage.style.display = 'block';
       break;
@@ -145,16 +145,16 @@ sortBtn.addEventListener('click', () => {
 
 // use dragula to complete dnd effects
 let drake = dragula();
-function loadCurrwinPage() {
-  let currwinPage = document.querySelector('#currwin-page');
-  currwinPage.innerHTML = '';
+function loadCurrwinList() {
+  let currwinList = document.querySelector('#currwin-list-wrapper');
+  currwinList.innerHTML = '';     // clear the currwin list
   chrome.tabs.query({currentWindow: true}, (tabs) => {
-    let ulElement = document.createElement('ul');
-    ulElement.className = 'site-list';
+    let tabList = document.createElement('ul');
+    tabList.className = 'site-list';
     for (let tab of tabs) {
-      let liElement = document.createElement('li');
-      liElement.className = 'site-item';
-      liElement.dataset.tabId = tab.id;
+      let tabItem = document.createElement('li');
+      tabItem.className = 'site-item';
+      tabItem.dataset.tabId = tab.id;
 
       let infoText = document.createElement('span');
       infoText.className = 'info-text';
@@ -170,14 +170,30 @@ function loadCurrwinPage() {
       closeBtn.className = 'close-btn';
       closeBtn.innerHTML = 'X';
 
-      liElement.appendChild(infoText);
-      liElement.appendChild(closeBtn);
-      ulElement.appendChild(liElement);
-      // append ulElement as the dragula containers
-      drake.containers.push(ulElement);
+      tabItem.appendChild(infoText);
+      tabItem.appendChild(closeBtn);
+      tabList.appendChild(tabItem);
+      // append tabList as the dragula containers
+      drake.containers.push(tabList);
     }
-    currwinPage.appendChild(ulElement);
+    currwinList.appendChild(tabList);
   });
+}
+
+let searchInput = document.querySelector('#currwin-search');
+searchInput.addEventListener('keyup', searchTabs);
+function searchTabs() {
+  let filterWord = searchInput.value.toLowerCase();
+
+  let tabItems = document.querySelectorAll('#currwin-list-wrapper li');
+  for (let item of tabItems) {
+    const itemText = item.querySelector('span').textContent;
+    if (itemText.toLowerCase().indexOf(filterWord) > -1) {
+      item.style.display = 'list-item';
+    } else {
+      item.style.display = 'none';
+    }
+  }
 }
 
 drake.on('drop', (el, target, source, sibling) => {
