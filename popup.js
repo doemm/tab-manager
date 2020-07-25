@@ -154,14 +154,17 @@ function loadCurrwinList() {
       siteItem.dataset.tabId = tab.id;
       siteItem.tabIndex = '0';     // this is for change focus
 
+      // escape title with html special characters
+      const escaped_title = tab.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
       let infoText = document.createElement('span');
       infoText.className = 'info-text';
       if (tab.favIconUrl) {
         infoText.innerHTML = '<img class="site-icon" ' +
-          'src="' + tab.favIconUrl + '">' + tab.title;
+          'src="' + tab.favIconUrl + '">' + escaped_title;
       } else {
         const spanStyle = 'display:inline-block; width:13.3333px; height:13.3333px; margin-right:6px;';
-        infoText.innerHTML = '<span style="' + spanStyle + '"></span>' + tab.title;
+        infoText.innerHTML = '<span style="' + spanStyle + '"></span>' + escaped_title;
       }
 
       // handle the click event for close tab
