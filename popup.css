@@ -45,10 +45,9 @@ body {
   background: #929292;
 }
 .tab-bar .tab-button {
-  display: block;
+  display: inline-block;
   font-size: 14px;
   padding: 8px 12px;
-  float: left;
   border: none;
   color: inherit;
   background: #929292;
@@ -72,7 +71,9 @@ body {
 }
 #merge-button,
 #sort-button {
+  display: inline-block;
   width: 90px;
+  margin-top: 4px;
   white-space: nowrap;
   padding: 6px 8px;
   background: #f4a236;
@@ -84,6 +85,18 @@ body {
 #merge-button:active,
 #sort-button:active {
   background: #f4a236;
+}
+#kill-button {
+  width: auto;
+  height: 30px;
+  padding: 2px 10px;
+  background: #f44336;
+}
+#kill-button:hover {
+  background: #981208;
+}
+#kill-button:active {
+  background: #f44336;
 }
 
 

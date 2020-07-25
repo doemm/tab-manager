@@ -83,6 +83,20 @@ toggleBtn.addEventListener('click', () => {
   });
 });
 
+let killBtn = document.querySelector('#kill-button');
+killBtn.addEventListener('click', () => {
+  chrome.tabs.query({currentWindow: true}, (tabs) => {
+    let tabSet = new Set();
+    for (let tab of tabs) {
+      if (!tabSet.has(tab.url)) {
+        tabSet.add(tab.url);
+      } else {
+        chrome.tabs.remove(parseInt(tab.id));
+      }
+    }
+  });
+});
+
 let mergeBtn = document.querySelector('#merge-button');
 mergeBtn.addEventListener('click', () => {
     chrome.windows.getCurrent((window) => {
