@@ -219,6 +219,9 @@ function loadCurrwinList() {
             siteList.removeChild(event.currentTarget);
           }
         });
+
+        // display short note of tab url when hover list item
+        siteItem.title = tab.url;
   
         siteList.appendChild(siteItem);
         // append siteList as the dragula containers
