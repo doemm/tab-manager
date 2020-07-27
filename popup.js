@@ -1,9 +1,10 @@
 'use strict';
 
 const colorMap = {
-  blue: '#3688f4',
-  grey: '#929292',
-  red:  '#f44336'
+  white: '#ffffff',
+  blue:  '#3688f4',
+  grey:  '#929292',
+  red:   '#f44336'
 };
 
 chrome.storage.local.get('savedTab', (data) => {
@@ -163,63 +164,73 @@ sortBtn.addEventListener('click', () => {
 let drake = dragula();
 let currwinListWrapper = document.querySelector('#currwin-list-wrapper');
 function loadCurrwinList() {
-  currwinListWrapper.innerHTML = '';     // clear the currwin list
-  chrome.tabs.query({currentWindow: true}, (tabs) => {
-    let siteList = document.createElement('ul');
-    siteList.className = 'site-list';
-    for (let tab of tabs) {
-      let siteItem = document.createElement('li');
-      siteItem.className = 'site-item';
-      siteItem.dataset.tabId = tab.id;
-      siteItem.tabIndex = '0';     // this is for change focus
+  chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
+    const activeTab = tabs[0];
 
-      // escape title with html special characters
-      const escaped_title = tab.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-      let infoText = document.createElement('span');
-      infoText.className = 'info-text';
-      if (tab.favIconUrl) {
-        infoText.innerHTML = '<img class="site-icon" ' +
-          'src="' + tab.favIconUrl + '">' + escaped_title;
-      } else {
-        const spanStyle = 'display:inline-block; width:13.3333px; height:13.3333px; margin-right:6px;';
-        infoText.innerHTML = '<span style="' + spanStyle + '"></span>' + escaped_title;
-      }
-
-      // handle the click event for close tab
-      let closeBtn = document.createElement('button');
-      closeBtn.className = 'close-btn';
-      closeBtn.innerHTML = 'X';
-
-      siteItem.appendChild(infoText);
-      siteItem.appendChild(closeBtn);
-
-      // handle the keyboard event for close tab
-      siteItem.addEventListener('mouseover', (event) => {
-        event.currentTarget.focus();
-      });
-      siteItem.addEventListener('mouseleave', (event) => {
-        event.currentTarget.blur();
-      });
-      siteItem.addEventListener('keydown', (event) => {
-        if (event.code === 'KeyX') {
-          const tabId = event.currentTarget.dataset.tabId;
-          chrome.tabs.remove(parseInt(tabId));
-          // remove closed page list item
-          siteList.removeChild(event.currentTarget);
+    currwinListWrapper.innerHTML = '';     // clear the currwin list
+    chrome.tabs.query({currentWindow: true}, (tabs) => {
+      let siteList = document.createElement('ul');
+      siteList.className = 'site-list';
+      for (let tab of tabs) {
+        let siteItem = document.createElement('li');
+        siteItem.className = 'site-item';
+        siteItem.dataset.tabId = tab.id;
+        siteItem.tabIndex = '0';     // this is for change focus
+  
+        // escape title with html special characters
+        const escaped_title = tab.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  
+        let infoText = document.createElement('span');
+        infoText.className = 'info-text';
+        if (tab.favIconUrl) {
+          infoText.innerHTML = '<img class="site-icon" ' +
+            'src="' + tab.favIconUrl + '">' + escaped_title;
+        } else {
+          const spanStyle = 'display:inline-block; width:13.3333px; height:13.3333px; margin-right:6px;';
+          infoText.innerHTML = '<span style="' + spanStyle + '"></span>' + escaped_title;
         }
-      });
+  
+        // handle the click event for close tab
+        let closeBtn = document.createElement('button');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = 'X';
+  
+        siteItem.appendChild(infoText);
+        siteItem.appendChild(closeBtn);
 
-      siteList.appendChild(siteItem);
-      // append siteList as the dragula containers
-      drake.containers.push(siteList);
-    }
-    currwinListWrapper.appendChild(siteList);
-    // hate to do this, but this resolves the scrollbar width issue
-    let textList = document.querySelectorAll('.info-text');
-    for (let textItem of textList) {
-      textItem.style.width = (419-(siteList.offsetWidth-siteList.clientWidth))+'px';
-    }
+        // if it is current selected tab
+        if (activeTab.id === tab.id) {
+          siteItem.style.background = colorMap.grey;
+          siteItem.style.color = colorMap.white;
+        }
+
+        // handle the keyboard event for close tab
+        siteItem.addEventListener('mouseover', (event) => {
+          event.currentTarget.focus();
+        });
+        siteItem.addEventListener('mouseleave', (event) => {
+          event.currentTarget.blur();
+        });
+        siteItem.addEventListener('keydown', (event) => {
+          if (event.code === 'KeyX') {
+            const tabId = event.currentTarget.dataset.tabId;
+            chrome.tabs.remove(parseInt(tabId));
+            // remove closed page list item
+            siteList.removeChild(event.currentTarget);
+          }
+        });
+  
+        siteList.appendChild(siteItem);
+        // append siteList as the dragula containers
+        drake.containers.push(siteList);
+      }
+      currwinListWrapper.appendChild(siteList);
+      // hate to do this, but this resolves the scrollbar width issue
+      let textList = document.querySelectorAll('.info-text');
+      for (let textItem of textList) {
+        textItem.style.width = (419-(siteList.offsetWidth-siteList.clientWidth))+'px';
+      }
+    });
   });
 }
 
