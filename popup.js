@@ -18,23 +18,28 @@ let currwinPage = document.querySelector('#currwin-page');
 let actionsPage = document.querySelector('#actions-page');
 
 let tabBar = document.querySelector('.tab-bar');
+let tabContents = document.querySelectorAll('.tab-content');
+let tabButtons = document.querySelectorAll('.tab-button');
+
 tabBar.addEventListener('click', (event) => {
   let activeTab = event.target;
 
-  let tabContents = document.querySelectorAll('.tab-content');
   for (let i = 0; i < tabContents.length; ++i) {
     if (tabContents[i].id !== activeTab.dataset.page) {
       tabContents[i].style.display = 'none';
     }
   }
-  let tabButtons = document.querySelectorAll('.tab-button');
+
   for (let i = 0; i < tabButtons.length; ++i) {
     if (tabButtons[i].id !== activeTab.id) {
       tabButtons[i].style.background = colorMap.grey;
+      tabButtons[i].classList.remove('selected');
+    } else {
+      tabButtons[i].style.background = colorMap.blue;
+      tabButtons[i].classList.add('selected');
     }
   }
 
-  activeTab.style.background = colorMap.blue;
   switch(activeTab.id) {
     case 'currwin-tab':
       loadCurrwinList();
@@ -197,10 +202,12 @@ function loadCurrwinList() {
         event.currentTarget.blur();
       });
       siteItem.addEventListener('keydown', (event) => {
-        const tabId = event.currentTarget.dataset.tabId;
-        chrome.tabs.remove(parseInt(tabId));
-        // remove closed page list item
-        siteList.removeChild(event.currentTarget);
+        if (event.code === 'KeyX') {
+          const tabId = event.currentTarget.dataset.tabId;
+          chrome.tabs.remove(parseInt(tabId));
+          // remove closed page list item
+          siteList.removeChild(event.currentTarget);
+        }
       });
 
       siteList.appendChild(siteItem);
@@ -208,6 +215,11 @@ function loadCurrwinList() {
       drake.containers.push(siteList);
     }
     currwinListWrapper.appendChild(siteList);
+    // hate to do this, but this resolves the scrollbar width issue
+    let textList = document.querySelectorAll('.info-text');
+    for (let textItem of textList) {
+      textItem.style.width = (419-(siteList.offsetWidth-siteList.clientWidth))+'px';
+    }
   });
 }
 

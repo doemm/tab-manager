@@ -117,6 +117,8 @@ body {
   width: 468px;
   color: #000;
   list-style: none;
+  max-height: 320px;
+  overflow-y: scroll;
 }
 /* .site-item {} */
 .info-text {
