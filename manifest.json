@@ -1,7 +1,7 @@
 {
-  "name": "TabManager",
+  "name": "Tab Manager",
   "version": "1.9.4",
-  "description": "An extension for managing and organizing tabs.",
+  "description": "A tool for managing and organizing tabs",
   "permissions": ["storage", "tabs"],
   "background": {
     "scripts": ["background.js"],

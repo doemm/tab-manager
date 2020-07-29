@@ -2,7 +2,7 @@
 
 Tab Manager is a browser extension that helps you to manage all the tabs. The philosophy behind it is to manage all the tabs within the current window. It is often the case that there should **NOT** be more than 2 or 3 browser windows opened. Thus, the extension itself has a limited or no support for managing multi-window tabs. It is also not planned to add any multi-window tabs support in the future. However, feel free to give any suggestions or design ideas.
 
-The extension works on Chrome and Firefox and have not tested on other browsers. You can download from the links below:
+The extension is now on Chrome and Firefox stores for downloading.
 
 ## Features Exploration
 
@@ -49,6 +49,6 @@ Current Window gives you the ability to delete, move, and search tabs in current
 
 ## Contribute to Codebase
 
-Most of the code is written in pure JavaScript and based on ES6 standards. The drag and drop feature is using the dragula APIs for simplicity. If you are confortable with Chrome Extension APIs, you should be good to go. To get started, you can load this project folder in Chrome or open the manifest.json file in Firefox. Looking forward to see some issues and PRs!
+Most of the code is written in pure JavaScript and based on ES6 standards. The drag and drop feature is using the [Dragula APIs](https://github.com/bevacqua/dragula) for simplicity. If you are confortable with [Chrome Extension APIs](https://developer.chrome.com/extensions/api_index), you should be good to go. To get started, you can load this project folder in Chrome or open the manifest.json file in Firefox. Looking forward to see some issues and PRs!
 
-Currently, we are planning to move the code to TypeScript and separate some of the functionalities for easier maintainability.
+Currently, we are planning to move the code to TypeScript and separate some of the functionalities for easier maintainability. The code is under the [MIT LICENSE](./LICENSE.md), feel free to use or distribute.
